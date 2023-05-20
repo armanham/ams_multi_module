@@ -2,6 +2,7 @@ package com.bdg.domain.model;
 
 
 import com.bdg.domain.persistent.PassengerPer;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -9,45 +10,34 @@ import org.springframework.format.annotation.NumberFormat;
 
 public class PassengerMod extends BaseMod {
 
-    private String name;
-    private String phone;
-    private AddressMod addressMod;
+    @NotNull @NotBlank @NotEmpty
+    private final String name;
+
+    @NotNull @NotBlank @NotEmpty @NumberFormat(style = NumberFormat.Style.NUMBER)
+    private final String phone;
+
+    @NotNull @Valid
+    private final AddressMod addressMod;
 
     public PassengerMod(
-            final String name,
-            final String phone,
-            final AddressMod addressMod) {
-        setName(name);
-        setPhone(phone);
-        setAddress(addressMod);
+            @NotNull String name,
+            @NotNull String phone,
+            @NotNull @Valid AddressMod addressMod) {
+        this.name = name;
+        this.phone = phone;
+        this.addressMod = addressMod;
     }
 
-    public PassengerMod() {
-    }
-
-    public String getName() {
+    public @NotNull String getName() {
         return name;
     }
 
-    public void setName(@NotNull @NotBlank @NotEmpty final String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
+    public @NotNull String getPhone() {
         return phone;
     }
 
-    public void setPhone(
-            @NotNull @NotBlank @NotEmpty @NumberFormat(style = NumberFormat.Style.NUMBER) final String phone) {
-        this.phone = phone;
-    }
-
-    public AddressMod getAddress() {
+    public @NotNull AddressMod getAddress() {
         return addressMod;
-    }
-
-    public void setAddress(@NotNull final AddressMod addressMod) {
-        this.addressMod = addressMod;
     }
 
     public PassengerPer getPersistent() {

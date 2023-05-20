@@ -4,6 +4,7 @@ import com.bdg.domain.model.CompanyMod;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,10 +25,8 @@ public class CompanyPer extends BaseEntity {
     private Date foundDate;
 
     public CompanyMod getModel() {
-        CompanyMod companyMod = new CompanyMod();
+        CompanyMod companyMod = new CompanyMod(name, foundDate);
         companyMod.setId(getId());
-        companyMod.setName(name);
-        companyMod.setFoundDate(foundDate);
         return companyMod;
     }
 }

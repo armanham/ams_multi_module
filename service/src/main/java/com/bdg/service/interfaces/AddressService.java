@@ -9,7 +9,7 @@ public interface AddressService {
 
     AddressMod save(AddressMod address);
 
-    Optional<AddressMod> findById(Long id);
+    AddressMod findById(Long id);
 
     List<AddressMod> findAll();
 

@@ -11,6 +11,8 @@
 
     <artifactId>domain</artifactId>
 
+    <packaging>jar</packaging>
+
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
         <maven.compiler.target>19</maven.compiler.target>
@@ -19,7 +21,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.bdg.exception</groupId>
+            <groupId>com.bdg</groupId>
             <artifactId>exception</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

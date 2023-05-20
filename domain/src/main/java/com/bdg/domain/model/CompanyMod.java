@@ -11,31 +11,25 @@ import java.util.Objects;
 
 public class CompanyMod extends BaseMod {
 
-    private String name;
-    private Date foundDate;
+    @NotNull @NotBlank @NotEmpty
+    private final String name;
 
-    public CompanyMod(final String name, final Date foundDate) {
-        setName(name);
-        setFoundDate(foundDate);
+    @NotNull
+    private final Date foundDate;
+
+    public CompanyMod(
+            @NotNull String name,
+            @NotNull Date foundDate) {
+        this.name = name;
+        this.foundDate = foundDate;
     }
 
-    public CompanyMod() {
-    }
-
-    public String getName() {
+    public @NotNull String getName() {
         return name;
     }
 
-    public void setName(@NotNull @NotBlank @NotEmpty final String name) {
-        this.name = name;
-    }
-
-    public Date getFoundDate() {
+    public @NotNull Date getFoundDate() {
         return foundDate;
-    }
-
-    public void setFoundDate(@NotNull final Date foundDate) {
-        this.foundDate = foundDate;
     }
 
     public CompanyPer getPersistent(){

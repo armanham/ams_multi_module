@@ -1,48 +1,40 @@
 package com.bdg.domain.model;
 
 import com.bdg.domain.persistent.AddressPer;
+import com.bdg.domain.response_json.AddressResponse;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 
 import java.util.Objects;
 
-
+@AllArgsConstructor
 public class AddressMod extends BaseMod {
 
-    private String country;
+    @NotNull @NotEmpty @NotBlank
+    private final String country;
 
-    private String city;
+    @NotNull @NotEmpty @NotBlank
+    private final String city;
 
-    public AddressMod(final String country, final String city) {
-        setCountry(country);
-        setCity(city);
-    }
-
-    public AddressMod() {
-    }
-
-    public String getCountry() {
+    public @NotNull String getCountry() {
         return country;
     }
 
-    public void setCountry(@NotNull @NotBlank @NotEmpty final String country) {
-        this.country = country;
-    }
-
-    public String getCity() {
+    public @NotNull String getCity() {
         return city;
     }
 
-    public void setCity(@NotNull @NotBlank @NotEmpty final String city) {
-        this.city = city;
-    }
-
-    public AddressPer getPersistent(){
+    public AddressPer getPersistent() {
         AddressPer addressPer = new AddressPer();
         addressPer.setCountry(country);
         addressPer.setCity(city);
         return addressPer;
+    }
+
+    public AddressResponse getResponse() {
+        return new AddressResponse(getId(), country, city);
     }
 
     @Override

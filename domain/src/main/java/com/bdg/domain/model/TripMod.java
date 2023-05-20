@@ -1,30 +1,33 @@
 package com.bdg.domain.model;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.validation.annotation.Validated;
 
 import java.sql.Timestamp;
 
+@Valid
 public class TripMod extends BaseMod {
 
     @NotNull
-    private CompanyMod company;
+    private final CompanyMod company;
 
     @NotNull @NotEmpty @NotBlank
-    private String airplane;
+    private final String airplane;
 
     @NotNull @NotEmpty @NotBlank
-    private String townFrom;
+    private final String townFrom;
 
     @NotNull @NotEmpty @NotBlank
-    private String townTo;
+    private final String townTo;
 
     @NotNull
-    private Timestamp timeOut;
+    private final Timestamp timeOut;
 
     @NotNull
-    private Timestamp timeIn;
+    private final Timestamp timeIn;
 
     public TripMod(
             @NotNull CompanyMod company,
@@ -45,48 +48,24 @@ public class TripMod extends BaseMod {
         return company;
     }
 
-    public void setCompany(final @NotNull CompanyMod companyMod) {
-        this.company = companyMod;
-    }
-
     public @NotNull String getAirplane() {
         return airplane;
-    }
-
-    public void setAirplane(final @NotNull String airplane) {
-        this.airplane = airplane;
     }
 
     public @NotNull String getTownFrom() {
         return townFrom;
     }
 
-    public void setTownFrom(@NotNull final String townFrom) {
-        this.townFrom = townFrom;
-    }
-
     public @NotNull String getTownTo() {
         return townTo;
-    }
-
-    public void setTownTo(@NotNull final String townTo) {
-        this.townTo = townTo;
     }
 
     public @NotNull Timestamp getTimeOut() {
         return timeOut;
     }
 
-    public void setTimeOut(@NotNull final Timestamp timeOut) {
-        this.timeOut = timeOut;
-    }
-
     public @NotNull Timestamp getTimeIn() {
         return timeIn;
-    }
-
-    public void setTimeIn(@NotNull final Timestamp timeIn) {
-        this.timeIn = timeIn;
     }
 
     @Override

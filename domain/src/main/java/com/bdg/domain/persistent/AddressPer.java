@@ -5,7 +5,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,10 +26,8 @@ public class AddressPer extends BaseEntity {
     private String city;
 
     public AddressMod getModel() {
-        AddressMod addressMod = new AddressMod();
+        AddressMod addressMod = new AddressMod(country, city);
         addressMod.setId(getId());
-        addressMod.setCountry(country);
-        addressMod.setCity(city);
         return addressMod;
     }
 }

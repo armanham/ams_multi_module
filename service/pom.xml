@@ -12,6 +12,9 @@
     <groupId>com.bdg.service</groupId>
     <artifactId>service</artifactId>
 
+    <packaging>jar</packaging>
+
+
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
         <maven.compiler.target>19</maven.compiler.target>

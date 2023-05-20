@@ -11,6 +11,7 @@ import java.util.Objects;
 
 public class PassInTripMod extends BaseMod {
 
+
     private TripMod trip;
     private PassengerMod passenger;
     private String place;

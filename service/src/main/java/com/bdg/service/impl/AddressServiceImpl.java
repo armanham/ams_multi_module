@@ -2,10 +2,13 @@ package com.bdg.service.impl;
 
 import com.bdg.domain.model.AddressMod;
 import com.bdg.domain.persistent.AddressPer;
+import com.bdg.exception.AlreadyExistsException;
 import com.bdg.exception.WrongIdException;
 import com.bdg.repository.AddressRepository;
 import com.bdg.repository.PassengerRepository;
 import com.bdg.service.interfaces.AddressService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -34,23 +37,26 @@ public class AddressServiceImpl implements AddressService {
 
 
     @Override
-    public AddressMod save(@NotNull AddressMod address) {
+    public AddressMod save(AddressMod address) {
         if (addressRepository.existsByCountryAndCity(address.getCountry(), address.getCity())) {
-            return null;
+            throw new AlreadyExistsException(address + " already exists: ");
         }
-
-        AddressPer addressToSave = addressRepository.save(address.getPersistent());
-        address.setId(addressToSave.getId());
-        return address;
+        return addressRepository.save(address.getPersistent()).getModel();
     }
 
 
     @Override
-    public Optional<AddressMod> findById(Long id) {
+    public AddressMod findById(Long id) {
         if (id <= 0) {
             throw new WrongIdException(id);
         }
-        return addressRepository.findById(id).map(AddressPer::getModel);
+        Optional<AddressPer> optionalAddressPer = addressRepository.findById(id);
+
+        if (optionalAddressPer.isEmpty()){
+            throw new IllegalArgumentException();
+        }
+
+        return optionalAddressPer.get().getModel();
     }
 
 
@@ -64,7 +70,7 @@ public class AddressServiceImpl implements AddressService {
 
 
     @Override
-    public List<AddressMod> findAllByCity(@NotNull @NotBlank @NotEmpty String city) {
+    public List<AddressMod> findAllByCity(String city) {
         return addressRepository.findAllByCity(city)
                 .stream()
                 .map(AddressPer::getModel)
@@ -73,7 +79,7 @@ public class AddressServiceImpl implements AddressService {
 
 
     @Override
-    public List<AddressMod> findAllByCountry(@NotNull @NotBlank @NotEmpty String country) {
+    public List<AddressMod> findAllByCountry(String country) {
         return addressRepository.findAllByCountry(country)
                 .stream()
                 .map(AddressPer::getModel)
@@ -82,7 +88,7 @@ public class AddressServiceImpl implements AddressService {
 
 
     @Override
-    public AddressMod updateById(Long id, @NotNull AddressMod newAddress) {
+    public AddressMod updateById(Long id, AddressMod newAddress) {
         if (id <= 0) {
             throw new WrongIdException(id);
         }

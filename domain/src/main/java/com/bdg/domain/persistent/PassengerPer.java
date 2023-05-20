@@ -16,7 +16,7 @@ public class PassengerPer extends BaseEntity {
     @Column(name = "name", nullable = false, length = 24)
     private String name;
 
-    @Column(name = "name", nullable = false, unique = true, length = 24)
+    @Column(name = "phone", nullable = false, unique = true, length = 24)
     private String phone;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,11 +24,8 @@ public class PassengerPer extends BaseEntity {
     private AddressPer address;
 
     public PassengerMod getModel() {
-        PassengerMod passengerMod = new PassengerMod();
+        PassengerMod passengerMod = new PassengerMod(name, phone, address.getModel());
         passengerMod.setId(getId());
-        passengerMod.setName(name);
-        passengerMod.setPhone(phone);
-        passengerMod.setAddress(address.getModel());
         return passengerMod;
     }
 }
